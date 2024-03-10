@@ -7,7 +7,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /festapi
+          - path: /fastapi
             pathType: Prefix
             backend:
               service:
