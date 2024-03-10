@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: fiap58-ingress
+spec:
+  ingressClassName: nginx #This is how we target the nginx ingress controller.
+  rules:
+    - http:
+        paths:
+          - path: /festapi
+            pathType: Prefix
+            backend:
+              service:
+                name: fastapi-svc
+                port:
+                  number: 8080
+                  #name: chespirito
