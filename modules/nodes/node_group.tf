@@ -14,7 +14,7 @@ resource "aws_eks_node_group" "node_group" {
   disk_size            = 20
   force_update_version = false
 
-  instance_types = ["t3.micro"]
+  instance_types = ["t3.small"]
 
   scaling_config {
     desired_size = 4
