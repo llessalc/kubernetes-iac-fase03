@@ -7,11 +7,74 @@ spec:
   rules:
     - http:
         paths:
-          - path: /fastapi
+        # pedidos
+        ##########################
+          - path: /categoria
             pathType: Prefix
             backend:
               service:
-                name: fastapi-svc
+                name: app-pedido
                 port:
                   number: 8080
                   #name: chespirito
+          - path: /cliente
+            pathType: Prefix
+            backend:
+              service:
+                name: app-pedido
+                port:
+                  number: 8080
+          - path: /adm
+            pathType: Prefix
+            backend:
+              service:
+                name: app-pedido
+                port:
+                  number: 8080
+          - path: /pedidos
+            pathType: Prefix
+            backend:
+              service:
+                name: app-pedido
+                port:
+                  number: 8080
+          - path: /produto
+            pathType: Prefix
+            backend:
+              service:
+                name: app-pedido
+                port:
+                  number: 8080
+          # pagamento
+          ##################################
+          - path: /gerenciamento-pagamento
+            pathType: Prefix
+            backend:
+              service:
+                name: app-pagamento
+                port:
+                  number: 8080
+          # webhook
+          ##################################
+          - path: /whorder
+            pathType: Prefix
+            backend:
+              service:
+                name: webhook-pagamento
+                port:
+                  number: 5000
+          - path: /whpay
+            pathType: Prefix
+            backend:
+              service:
+                name: webhook-pagamento
+                port:
+                  number: 5000
+          - path: /heath-check
+            pathType: Prefix
+            backend:
+              service:
+                name: webhook-pagamento
+                port:
+                  number: 5000
+
