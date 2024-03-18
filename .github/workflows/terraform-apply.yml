@@ -14,7 +14,6 @@ jobs:
   terraform-apply:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
-    needs: terraform-plan
     permissions:
       contents: read
     
