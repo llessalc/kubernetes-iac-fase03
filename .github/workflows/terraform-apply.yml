@@ -2,7 +2,7 @@ name: Terraform Plan
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
   TF_CLOUD_ORGANIZATION: "${{ secrets.TF_CLOUD_ORGANIZATION }}"
@@ -13,7 +13,7 @@ env:
 jobs:
   terraform-apply:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/main'
     needs: terraform-plan
     permissions:
       contents: read
