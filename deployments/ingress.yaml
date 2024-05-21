@@ -54,27 +54,13 @@ spec:
                 name: app-pagamentos
                 port:
                   number: 8080
-          # webhook
-          ##################################
-          - path: /whorder
+          # producao
+          #######################################
+          - path: /pedidoProducao
             pathType: Prefix
             backend:
               service:
-                name: webhook-pagamento
+                name: app-producao
                 port:
-                  number: 5000
-          - path: /whpay
-            pathType: Prefix
-            backend:
-              service:
-                name: webhook-pagamento
-                port:
-                  number: 5000
-          - path: /heath-check
-            pathType: Prefix
-            backend:
-              service:
-                name: webhook-pagamento
-                port:
-                  number: 5000
+                  number: 8080
 
