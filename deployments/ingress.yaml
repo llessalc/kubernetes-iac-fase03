@@ -13,7 +13,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app-pedido
+                name: app-pedidos
                 port:
                   number: 8080
                   #name: chespirito
@@ -21,28 +21,28 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app-pedido
+                name: app-pedidos
                 port:
                   number: 8080
           - path: /adm
             pathType: Prefix
             backend:
               service:
-                name: app-pedido
+                name: app-pedidos
                 port:
                   number: 8080
           - path: /pedidos
             pathType: Prefix
             backend:
               service:
-                name: app-pedido
+                name: app-pedidos
                 port:
                   number: 8080
           - path: /produto
             pathType: Prefix
             backend:
               service:
-                name: app-pedido
+                name: app-pedidoss
                 port:
                   number: 8080
           # pagamento
