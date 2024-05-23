@@ -25,6 +25,9 @@ jobs:
 
       - name: Update kube config
         run: aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region us-east-1
+      
+      - name: helm
+        uses: azure/setup-helm@v4.2.0
 
       - name: Deploy to EKS
         env:
