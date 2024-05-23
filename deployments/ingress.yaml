@@ -42,7 +42,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app-pedidoss
+                name: app-pedidos
                 port:
                   number: 8080
           # pagamento
