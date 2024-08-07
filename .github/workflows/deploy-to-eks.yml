@@ -45,5 +45,5 @@ jobs:
 
       - name: Deploy to EKS
         run: |
-          
+          aws elbv2 wait load-balancer-available --cli-connect-timeout 60 --region us-east-1 && \
           kubectl apply -f deployments/
