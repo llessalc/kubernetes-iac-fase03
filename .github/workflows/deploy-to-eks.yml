@@ -46,4 +46,4 @@ jobs:
       - name: Deploy to EKS
         run: |
           
-          kubectl apply -k deployments/
+          kubectl apply -f deployments/
