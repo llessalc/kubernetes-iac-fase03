@@ -1,9 +1,12 @@
-name: Deploy ingress and Load balancer
+name: Deploy Load balancer and ingress into EKS
 on:
   workflow_run:
     workflows: [Terraform Apply]
     types:
       - completed
+
+    branches:
+      - main
 
 env:
   EKS_CLUSTER_NAME: fiap-58-eks-cluster
@@ -25,14 +28,22 @@ jobs:
 
       - name: Update kube config
         run: aws eks update-kubeconfig --name $EKS_CLUSTER_NAME --region us-east-1
-      
-      - name: helm install
-        uses: azure/setup-helm@v4.2.0
 
-      - name: Deploy to EKS
-        env:
-          IMAGE_TAG: producao
+      - name: Install Helm
+        uses: azure/setup-helm@v4.2.0
+        with:
+          version: 'v3.13.3'
+        id: install
+
+      - name: Install nginx LB
         run: |
           helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx && \
-          helm upgrade -i --set controller.service.type=LoadBalancer --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-type"="nlb" --set controller.autoscaling.maxReplicas=1 ingress-nginx ingress-nginx/ingress-nginx --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-internal"="true" \
+          helm upgrade -i --set controller.service.type=LoadBalancer \
+          --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-type"="nlb" \
+          --set controller.autoscaling.maxReplicas=1 ingress-nginx ingress-nginx/ingress-nginx \
+          --set controller.service.annotations."service\.beta\.kubernetes\.io/aws-load-balancer-internal"="true"
+
+      - name: Deploy to EKS
+        run: |
+          aws elbv2 wait load-balancer-available --cli-connect-timeout 60 --region us-east-1 && \
           kubectl apply -f deployments/
