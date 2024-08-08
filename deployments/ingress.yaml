@@ -63,3 +63,4 @@ spec:
                 name: app-producao
                 port:
                   number: 8080
+
