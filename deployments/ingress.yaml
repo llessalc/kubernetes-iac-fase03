@@ -13,7 +13,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app-pedido
+                name: app-pedidos
                 port:
                   number: 8080
                   #name: chespirito
@@ -21,28 +21,28 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app-pedido
+                name: app-pedidos
                 port:
                   number: 8080
           - path: /adm
             pathType: Prefix
             backend:
               service:
-                name: app-pedido
+                name: app-pedidos
                 port:
                   number: 8080
           - path: /pedidos
             pathType: Prefix
             backend:
               service:
-                name: app-pedido
+                name: app-pedidos
                 port:
                   number: 8080
           - path: /produto
             pathType: Prefix
             backend:
               service:
-                name: app-pedido
+                name: app-pedidos
                 port:
                   number: 8080
           # pagamento
@@ -51,30 +51,15 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: app-pagamento
+                name: app-pagamentos
                 port:
                   number: 8080
-          # webhook
-          ##################################
-          - path: /whorder
+          # producao
+          #######################################
+          - path: /pedidoProducao
             pathType: Prefix
             backend:
               service:
-                name: webhook-pagamento
+                name: app-producao
                 port:
-                  number: 5000
-          - path: /whpay
-            pathType: Prefix
-            backend:
-              service:
-                name: webhook-pagamento
-                port:
-                  number: 5000
-          - path: /heath-check
-            pathType: Prefix
-            backend:
-              service:
-                name: webhook-pagamento
-                port:
-                  number: 5000
-
+                  number: 8080
