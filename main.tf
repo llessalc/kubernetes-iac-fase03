@@ -57,12 +57,3 @@ module "workers_node_group" {
   subnet_priv-b_id = module.network.subnet_priv-b_id
 
 }
-
-resource "aws_ecr_repository" "fiap-53" {
-  name                 = "fiap-53"
-  image_tag_mutability = "MUTABLE"
- 
-  image_scanning_configuration {
-    scan_on_push = true
-  }
-}

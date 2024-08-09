@@ -20,6 +20,41 @@ resource "aws_iam_role" "nodes_role" {
   }
 }
 
+resource "aws_iam_policy" "sqs_policy" {
+  name        = "${var.cluster_name}-nodes-sqs-policy"
+  description = "Allow permissions to use SQS"
+
+  policy = jsonencode({
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Sid" : "Statement1",
+        "Effect" : "Allow",
+        "Action" : [
+          "sqs:GetQueueAttributes",
+          "sqs:GetQueueUrl",
+          "sqs:ListDeadLetterSourceQueues",
+          "sqs:ListMessageMoveTasks",
+          "sqs:ListQueues",
+          "sqs:ListQueueTags",
+          "sqs:ReceiveMessage",
+          "sqs:CancelMessageMoveTask",
+          "sqs:ChangeMessageVisibility",
+          "sqs:DeleteMessage",
+          "sqs:PurgeQueue",
+          "sqs:SendMessage",
+          "sqs:StartMessageMoveTask"
+        ],
+        "Resource" : "*"
+      }
+    ]
+  })
+
+  tags = {
+    tag-key = "nodes-${var.cluster_name}"
+  }
+}
+
 resource "aws_iam_role_policy_attachment" "worker_node_policy_att" {
   role = aws_iam_role.nodes_role.name
 
@@ -43,3 +78,13 @@ resource "aws_iam_role_policy_attachment" "cni_node_policy_att" {
   depends_on = [aws_iam_role.nodes_role]
 
 }
+
+resource "aws_iam_role_policy_attachment" "sqs_node_policy_att" {
+  role       = aws_iam_role.nodes_role.name
+  policy_arn = aws_iam_policy.sqs_policy.arn
+
+  depends_on = [aws_iam_role.nodes_role,
+  aws_iam_policy.sqs_policy]
+
+}
+
